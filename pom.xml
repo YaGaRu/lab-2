@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Корневой элемент описания проекта Maven (Project Object Model) -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <!-- Версия модели POM -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Координаты проекта: однозначно определяют артефакт в репозитории -->
+    <groupId>org.edu</groupId>          <!-- Идентификатор группы (организации) -->
+    <artifactId>lab2</artifactId>       <!-- Имя создаваемого артефакта -->
+    <version>1.0-SNAPSHOT</version>     <!-- Версия проекта -->
+    <packaging>war</packaging>          <!-- Тип пакета: web-приложение (war-архив) -->
+
+    <name>lab2 Maven Webapp</name>
+
+    <!-- Свойства проекта -->
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>   <!-- Версия языка Java -->
+        <maven.compiler.target>21</maven.compiler.target>   <!-- Версия байт-кода -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- Кодировка исходников -->
+    </properties>
+
+    <!-- Зависимости проекта -->
+    <dependencies>
+        <!-- Jakarta Servlet API: нужен для компиляции, а во время работы его предоставляет Tomcat,
+             поэтому область видимости provided (в war-архив не попадает) -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>6.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <!-- Имя итогового war-файла (target/lab2.war) -->
+        <finalName>lab2</finalName>
+
+        <plugins>
+            <!-- Плагин сборки web-приложения: задача war:war упаковывает каталог webapp,
+                 скомпилированные классы и библиотеки в war-архив -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <!-- Не считать ошибкой отсутствие web.xml (актуально для Servlet 3.0+) -->
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
